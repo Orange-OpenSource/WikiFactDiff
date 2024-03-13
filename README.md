@@ -153,7 +153,7 @@ python experiments/evaluate_wfd.py
    --dataset_path WIKIFACTDIFF_PATH
    --results_dir RESULT_PATH 
 ```
-Specify the path to the WikiFactDiff dataset `WIKIFACTDIFF_PATH` and the desired result folder `RESULT_PATH`.
+Specify the path to the WikiFactDiff dataset `WIKIFACTDIFF_PATH` and the desired result folder `RESULT_PATH`. If --dataset_path argument is not provided, the default [huggingface]([/guides/content/editing-an-existing-page](https://huggingface.co/datasets/OrangeInnov/WikiFactDiff)) version of WikiFactDiff is loaded.
 
 **NOTE**: Only replacement updates are evaluated since existing algorithms can only handle this update scenario (no oblivion, entity insertion, etc.).
 </details>
