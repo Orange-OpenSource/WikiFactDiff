@@ -46,6 +46,18 @@ if __name__ == '__main__':
                 break
         x['objects'] = new_objects
     wfd = [x for x in wfd if len(x['objects'])]
+
+    # Rename labels
+    rename = {
+        'learn' : 'new',
+        'forget' : 'obsolete',
+        'keep' : 'stable'
+    }
+
+    for x in wfd:
+        for obj in x['objects']:
+            obj['decision'] = rename[obj['decision']]
+
     with open(osp.join(STORAGE_FOLDER, 'wikifactdiff.jsonl'), 'w') as f:
         for x in wfd:
             f.write(json.dumps(x) + '\n')
