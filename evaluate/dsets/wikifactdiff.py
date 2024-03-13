@@ -65,7 +65,7 @@ class WikiFactDiffDataset(Dataset):
 class FunctionalWikiFactDiffDataset(WikiFactDiffDataset):
     @staticmethod
     def adapt_instance(instance : dict) -> dict:
-        old_update, new_update = sorted(instance['objects'], key=lambda x : x['decision'])
+        new_update, old_update = sorted(instance['objects'], key=lambda x : x['decision'])
         to_d = lambda x : {'id': x.get('id'), 'str' : x['label']}
         d = {'subject' : instance['subject']['label'], 'relation_id' : instance['relation']['id'], 
              'target_true' : to_d(old_update), 'target_new' : to_d(new_update),
