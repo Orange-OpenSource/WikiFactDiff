@@ -18,7 +18,7 @@ WikiFactDiff sample (triples only)             |  Templates used for verbalizati
 :-------------------------:|:-------------------------:
 [<img src="./images/sample.png" width="500"/>](./images/sample.png)  |  [<img src="./images/verb.png" width="500"/>](./images/verb.png)
 
-We release the WikiFactDiff dataset in [huggingface]([/guides/content/editing-an-existing-page](https://huggingface.co/datasets/OrangeInnov/WikiFactDiff)) for $T_{old} =$ *4 January 2021* and $T_{new} =$ *27 February 2023*, which is ideal to update language models trained using the Pile dataset that was released on December, 31st, 2020.
+We release the WikiFactDiff dataset in [huggingface](https://huggingface.co/datasets/OrangeInnov/WikiFactDiff) for $T_{old} =$ *4 January 2021* and $T_{new} =$ *27 February 2023*, which is ideal to update language models trained using the Pile dataset that was released on December, 31st, 2020.
 
 ## 1. How to build WikiFactDiff?
 <details>
@@ -153,7 +153,7 @@ python experiments/evaluate_wfd.py
    --dataset_path WIKIFACTDIFF_PATH
    --results_dir RESULT_PATH 
 ```
-Specify the path to the WikiFactDiff dataset `WIKIFACTDIFF_PATH` and the desired result folder `RESULT_PATH`. If --dataset_path argument is not provided, the default [huggingface]([/guides/content/editing-an-existing-page](https://huggingface.co/datasets/OrangeInnov/WikiFactDiff)) version of WikiFactDiff is loaded.
+Specify the path to the WikiFactDiff dataset `WIKIFACTDIFF_PATH` and the desired result folder `RESULT_PATH`. If --dataset_path argument is not provided, the default [huggingface](https://huggingface.co/datasets/OrangeInnov/WikiFactDiff)  version of WikiFactDiff is loaded.
 
 **NOTE**: Only replacement updates are evaluated since existing algorithms can only handle this update scenario (no oblivion, entity insertion, etc.).
 </details>
