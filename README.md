@@ -4,11 +4,12 @@
 In summary:
 - **WikiFactDiff** is a factual knowledge update dataset for LLMs
 - It describes the evolution of factual knowledge between two dates $T_{old}$ and $T_{new}$ in the form of semantic triples _(sample below)_.
-- The triples are verbalized _(examples below)_.
+- The triples are verbalized with the help of templates _(examples below)_.
 - <ins>**This repository can be used for two purposes:**</ins>
    - **build** an instance of WikiFactDiff given two dates $T_{old}$ and $T_{new}$.
    - **evaluate** knowledge update algorithms (ROME, MEMIT, MEND, ...) on WikiFactDiff.
 - The build process was designed to be easy-to-use. All you have to do is provide $T_{old}$, $T_{new}$, and a folder where to store intermediate files (More details in 1. How to build WikiFactDiff?).
+- All required resources to perform knowledge update and its evaluation are provided in WikiFactDiff including neighbors for each fact to account for bleedover.
 - More details in our paper : Coming soon...
 
 <!-- WikiFactDiff is a dataset designed to perform factual updates within LLMs and to evaluate them. More precisely, it describes the evolution of factual knowledge within Wikidata between two temporal points $T_{old}$ and $T_{new}$ in the form of semantic triples. -->
