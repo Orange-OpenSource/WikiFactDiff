@@ -18,7 +18,7 @@ WikiFactDiff sample (triples only)             |  Templates used for verbalizati
 :-------------------------:|:-------------------------:
 [<img src="./images/sample.png" width="500"/>](./images/sample.png)  |  [<img src="./images/verb.png" width="500"/>](./images/verb.png)
 
-We release the WikiFactDiff dataset for $T_{old} =$ *4 January 2021* and $T_{new} =$ *27 February 2023*, which is ideal to update language models trained using the Pile dataset that was released on December, 31st, 2020. The dataset, named `wikifactdiff.jsonl.xz`, should be decompressed before using it (with the help of the `xz` command).
+We release the WikiFactDiff dataset in [huggingface]([/guides/content/editing-an-existing-page](https://huggingface.co/datasets/OrangeInnov/WikiFactDiff)) for $T_{old} =$ *4 January 2021* and $T_{new} =$ *27 February 2023*, which is ideal to update language models trained using the Pile dataset that was released on December, 31st, 2020.
 
 ## 1. How to build WikiFactDiff?
 <details>
