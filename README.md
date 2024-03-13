@@ -151,7 +151,6 @@ python experiments/evaluate_wfd.py
    --ds_name wfd 
    --dataset_path WIKIFACTDIFF_PATH
    --results_dir RESULT_PATH 
-   --continue_from_run run_000
 ```
 Specify the path to the WikiFactDiff dataset `WIKIFACTDIFF_PATH` and the desired result folder `RESULT_PATH`.
 
