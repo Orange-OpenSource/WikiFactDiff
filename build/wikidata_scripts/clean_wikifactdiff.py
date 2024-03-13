@@ -51,7 +51,7 @@ if __name__ == '__main__':
     rename = {
         'learn' : 'new',
         'forget' : 'obsolete',
-        'keep' : 'stable'
+        'keep' : "static"
     }
 
     for x in wfd:
