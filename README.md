@@ -162,4 +162,4 @@ Specify the path to the WikiFactDiff dataset `WIKIFACTDIFF_PATH` and the desired
 Coming soon...
 
 ## Having issues using our code?
-Please let us know by opening an issue o
+Please let us know by opening an issue :)
