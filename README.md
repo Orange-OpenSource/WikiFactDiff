@@ -4,12 +4,13 @@
 In summary:
 - **WikiFactDiff** is a factual knowledge update dataset for LLMs
 - It describes the evolution of factual knowledge between two dates $T_{old}$ and $T_{new}$ in the form of semantic triples _(sample below)_.
-- The triples are verbalized _(examples below)_.
+- The triples are verbalized with the help of templates _(examples below)_.
 - <ins>**This repository can be used for two purposes:**</ins>
    - **build** an instance of WikiFactDiff given two dates $T_{old}$ and $T_{new}$.
    - **evaluate** knowledge update algorithms (ROME, MEMIT, MEND, ...) on WikiFactDiff.
 - The build process was designed to be easy-to-use. All you have to do is provide $T_{old}$, $T_{new}$, and a folder where to store intermediate files (More details in 1. How to build WikiFactDiff?).
-- More details in our paper : Coming soon...
+- All required resources to perform knowledge update and its evaluation are provided in WikiFactDiff including neighbors for each fact to account for bleedover.
+- All details can be found in our paper : Coming soon...
 
 <!-- WikiFactDiff is a dataset designed to perform factual updates within LLMs and to evaluate them. More precisely, it describes the evolution of factual knowledge within Wikidata between two temporal points $T_{old}$ and $T_{new}$ in the form of semantic triples. -->
 
@@ -17,7 +18,7 @@ WikiFactDiff sample (triples only)             |  Templates used for verbalizati
 :-------------------------:|:-------------------------:
 [<img src="./images/sample.png" width="500"/>](./images/sample.png)  |  [<img src="./images/verb.png" width="500"/>](./images/verb.png)
 
-We release the WikiFactDiff dataset for $T_{old} =$ *4 January 2021* and $T_{new} =$ *27 February 2023*, which is ideal to update language models trained using the Pile dataset that was released on December, 31st, 2020. The dataset, named `wikifactdiff.jsonl.xz`, should be decompressed before using it (with the help of the `xz` command).
+We release the WikiFactDiff dataset in [huggingface](https://huggingface.co/datasets/OrangeInnov/WikiFactDiff) for $T_{old} =$ *4 January 2021* and $T_{new} =$ *27 February 2023*, which is ideal to update language models trained using the Pile dataset that was released on December, 31st, 2020.
 
 ## 1. How to build WikiFactDiff?
 <details>
@@ -151,9 +152,8 @@ python experiments/evaluate_wfd.py
    --ds_name wfd 
    --dataset_path WIKIFACTDIFF_PATH
    --results_dir RESULT_PATH 
-   --continue_from_run run_000
 ```
-Specify the path to the WikiFactDiff dataset `WIKIFACTDIFF_PATH` and the desired result folder `RESULT_PATH`.
+Specify the path to the WikiFactDiff dataset `WIKIFACTDIFF_PATH` and the desired result folder `RESULT_PATH`. If --dataset_path argument is not provided, the default [huggingface](https://huggingface.co/datasets/OrangeInnov/WikiFactDiff)  version of WikiFactDiff is loaded.
 
 **NOTE**: Only replacement updates are evaluated since existing algorithms can only handle this update scenario (no oblivion, entity insertion, etc.).
 </details>
