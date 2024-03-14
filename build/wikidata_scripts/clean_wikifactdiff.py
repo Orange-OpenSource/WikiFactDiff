@@ -47,7 +47,7 @@ if __name__ == '__main__':
         x['objects'] = new_objects
     wfd = [x for x in wfd if len(x['objects'])]
 
-    # Rename labels
+    # Rename labels and step-up the "dist" field by one level
     rename = {
         'learn' : 'new',
         'forget' : 'obsolete',
@@ -57,6 +57,10 @@ if __name__ == '__main__':
     for x in wfd:
         for obj in x['objects']:
             obj['decision'] = rename[obj['decision']]
+        for group in x['neighborhood']:
+            group['dist'] = group['objects'][0]['dist']
+            for o in group['objects']:
+                o.pop('dist')
 
     with open(osp.join(STORAGE_FOLDER, 'wikifactdiff.jsonl'), 'w') as f:
         for x in wfd:
