@@ -127,7 +127,7 @@ This part breaks down, step-by-step, the internal process of the command **`pyth
 
 
 
-## 2. How to evaluate using WikiFactDiff?
+## 2. How to evaluate update algorithms using WikiFactDiff?
 The evaluation source code (located in `evaluate`) is based on the [MEMIT github repository](https://github.com/kmeng01/memit) published following the research paper on [MEMIT](https://arxiv.org/pdf/2210.07229.pdf). Its corresponding MIT licence is located in `evaluate/LICENCE`.
 <details>
 <summary>Click here!</summary>
