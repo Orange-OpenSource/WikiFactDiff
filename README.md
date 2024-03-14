@@ -150,7 +150,6 @@ python experiments/evaluate_wfd.py
    --alg_name ROME 
    --model_name EleutherAI/gpt-j-6B 
    --hparams_fname EleutherAI_gpt-j-6B.json 
-   --ds_name wfd 
    --dataset_path WIKIFACTDIFF_PATH
    --results_dir RESULT_PATH 
 ```
