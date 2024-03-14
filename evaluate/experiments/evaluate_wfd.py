@@ -21,7 +21,7 @@ from dsets import (
     WikiFactDiffDataset
 )
 from experiments.py.eval_utils_counterfact import compute_rewrite_quality_counterfact
-from experiments.py.eval_utils_wikifactdiff import _compute_rewrite_quality_wikifactdiff_functional
+from experiments.py.eval_utils_wikifactdiff import compute_rewrite_quality_wikifactdiff_functional
 from experiments.py.eval_utils_zsre import compute_rewrite_quality_zsre
 from memit import MEMITHyperParams, apply_memit_to_model
 from rome import ROMEHyperParams, apply_rome_to_model
@@ -46,7 +46,7 @@ DS_DICT = {
     "mcf": (MultiCounterFactDataset, compute_rewrite_quality_counterfact),
     "cf": (CounterFactDataset, compute_rewrite_quality_counterfact),
     "zsre": (MENDQADataset, compute_rewrite_quality_zsre),
-    "wfd" : (FunctionalWikiFactDiffDataset, _compute_rewrite_quality_wikifactdiff_functional)
+    "wfd" : (FunctionalWikiFactDiffDataset, compute_rewrite_quality_wikifactdiff_functional)
 }
 
 
@@ -282,7 +282,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--ds_name",
         choices=["mcf", "cf", "zsre", "wfd"],
-        default="mcf",
+        default="wfd",
         help="Dataset to perform evaluations on. Either CounterFact (cf), MultiCounterFact (mcf), or zsRE (zsre).",
     )
     parser.add_argument(
@@ -350,7 +350,7 @@ if __name__ == "__main__":
         "--n_partitions",
         type=int,
         default=1,
-        help="This argument is used to divide this process into many smaller processes (for parallelism). If we choose (n_partitions=5, offset=2), the dataset is split in 5 pieces by starting iterating from position 2 and stride by steps of 5",
+        help="If we choose for example (n_partitions=5, offset=2), the updates are performed on the 2nd, 7th, 12th, etc. instances of the dataset only. This is useful to parallelize the updates (n_partitions is the number of splits and offset is the chosen split).",
     )
     parser.add_argument(
         "--offset",

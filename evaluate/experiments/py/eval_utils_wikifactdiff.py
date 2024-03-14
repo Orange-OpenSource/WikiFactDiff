@@ -39,7 +39,7 @@ def apply_edits(model : torch.nn.Module, weights : dict[str, torch.Tensor]) -> d
         param.data = v
     return copy
 
-def _compute_rewrite_quality_wikifactdiff_functional(
+def compute_rewrite_quality_wikifactdiff_functional(
     model: AutoModelForCausalLM,
     tok: AutoTokenizer,
     record: typing.Dict,
