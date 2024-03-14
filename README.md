@@ -1,5 +1,4 @@
 # WikiFactDiff
-[<center><img src="./images/build_process.png" width="350"/></center>](./images/build_process.png)
 
 In summary:
 - **WikiFactDiff** is a factual knowledge update dataset for LLMs
@@ -21,6 +20,8 @@ WikiFactDiff sample (triples only)             |  Templates used for verbalizati
 We release the WikiFactDiff dataset in [huggingface](https://huggingface.co/datasets/OrangeInnov/WikiFactDiff) for $T_{old} =$ *4 January 2021* and $T_{new} =$ *27 February 2023*, which is ideal to update language models trained using the Pile dataset that was released on December, 31st, 2020.
 
 ## 1. How to build WikiFactDiff?
+<center><br><b>Build process</b></br><img src="images/build_process.png" width="350"/></center>
+
 <details>
 <summary>Click here!</summary>
 
