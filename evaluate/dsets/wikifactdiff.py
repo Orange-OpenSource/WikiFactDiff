@@ -1,16 +1,17 @@
-import json
-import random
-import typing
-from pathlib import Path
-
-import torch
-from torch.utils.data import Dataset
-from collections import Counter
-
 from util import globals
 
+import random
+import typing
+import numpy as np
+import os
+import pandas as pd
+
+from torch.utils.data import Dataset
+from datasets import load_dataset
+
 REMOTE_ROOT = f"{globals.REMOTE_ROOT_URL}/data/dsets"
-WIKIFACTDIFF_PATH = "/wfd_storage/wikifactdiff.jsonl"
+WIKIFACTDIFF_URL = "OrangeInnov/WikiFactDiff"
+
 
 class WikiFactDiffDataset(Dataset):
     def __init__(
@@ -24,30 +25,37 @@ class WikiFactDiffDataset(Dataset):
         **kwargs,
     ):
         if path is None:
-            path = WIKIFACTDIFF_PATH
+            path = WIKIFACTDIFF_URL
         self.functional_only = functional_only
-        with open(path, "r") as f:
-            data = [(i,json.loads(x)) for i,x in enumerate(f.readlines())]
-            for i, x in data:
-                x['case_id'] = i
-            self.data = list(zip(*data))[1]
+        if os.path.exists(path):
+            self.data = pd.read_parquet(path)
+        else:
+            self.data = load_dataset(path)['train'].to_pandas()
+        self.data = self.data.reset_index().rename(columns={'index': 'case_id'})
+        # with open(path, "r") as f:
+        #     data = [(i,json.loads(x)) for i,x in enumerate(f.readlines())]
+        #     for i, x in data:
+        #         x['case_id'] = i
+        #     self.data = list(zip(*data))[1]
         if use_random_neighbors:
             random.seed(456465)
             print('Using random neighbors to compute specificity.')
             all_neighborhood = []
-            for x in self.data:
-                all_neighborhood.extend(x['neighborhood'])
-            for x in self.data:
-                x['neighborhood'] = random.sample(all_neighborhood, k=10)
+            for x in self.data['neighborhood']:
+                all_neighborhood.extend(x)
+            self.data['neighborhood'] = [random.sample(all_neighborhood, k=10) for _ in range(len(self.data))]
         if functional_only:
             print('Keep only replace updates.')
-            self.data = [x for x in self.data if x['is_replace']]
+            self.data = self.data[self.data['is_replace']]
 
         # undersample_population : portion to keep from updates on the relation "population" 
         if balance and functional_only:
             random.seed(78451)
+            np.random.seed(984656)
             print('Undersample updates on the "population" relation by a factor of 14')
-            self.data = [x for x in self.data if x['relation']['label'] != 'population' or random.random() < 1/14]
+            mask = np.random.rand(len(self.data)) < 1/14
+            mask = (self.data['relation'].apply(lambda x : x['label']) != 'population').to_numpy() | mask
+            self.data = self.data.iloc[mask]
         self.balance = balance
 
         if size is not None:
@@ -97,5 +105,5 @@ class FunctionalWikiFactDiffDataset(WikiFactDiffDataset):
 
 
 if __name__ == '__main__':
-    d = FunctionalWikiFactDiffDataset()
+    d = WikiFactDiffDataset(balance=False, functional_only=False, path='wikifactdiff.parquet')
     print(d)
