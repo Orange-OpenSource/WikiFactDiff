@@ -6,6 +6,7 @@ import os.path as osp
 from collections import defaultdict, Counter
 from build.gpt3_5_verbalization.utils import KnowledgeTriple, Entity, Literal, Property
 from typing import Union
+from datasets import load_dataset
 
 
 
@@ -126,35 +127,49 @@ class FormatterForHumans:
         
         return formatted_date
     
-
+HF_VERB_PATH = {
+    "path" : "OrangeInnov/WikiFactDiff", # Huggingface ID
+    "name" : "triple_verbs" # Config name
+}
 class Verbalizer:
     def __init__(self, verbalization_path = None) -> None:
         # Spell checker used = language_tool_python
         if verbalization_path is None:
             verbalization_path = DEFAULT_CHATGPT_VERBALIZATIONS_PATH
+            path = osp.join(verbalization_path, 'verbalizations.jsonl')
+        else:
+            path = verbalization_path
         
-        self.human_formatter = FormatterForHumans()
+        if osp.exists(path):
+            def gen():
+                with open(path) as f:
+                    for x in f:
+                        yield json.loads(x)
+            to_iterate = gen()
+        else:
+            print('Path to ChatGPT triples verbalizations (%s) not found!' % osp.abspath(path))
+            print('Switching to Huggingface version located in %s' % HF_VERB_PATH['name'])
+            to_iterate = load_dataset(**HF_VERB_PATH)['train'].to_list()
         
-        with open(osp.join(verbalization_path, 'verbalizations.jsonl')) as f:
-            prop_fitb = defaultdict(list)
-            for x in f.readlines():
-                x = json.loads(x)
-                if x['error'] is not None:
-                    continue
-                prop = x['triple']['relation']['id']
-                subject_label = x['triple']['subject']['label']
-                verbs = [y.get('fill_in_the_blank', None) for y in x['verbalizations']]
-                # print('Before:')
-                # [print(y) for y in verbs if y is not None]
-                verbs = [blank_out_subject(y, subject_label) for y in verbs if y is not None]
-                verbs = [y for y in verbs if y is not None]
+        prop_fitb = defaultdict(list)
+        for x in to_iterate:
+            if x['error'] is not None:
+                continue
+            prop = x['triple']['relation']['id']
+            subject_label = x['triple']['subject']['label']
+            verbs = [y.get('fill_in_the_blank', None) for y in x['verbalizations']]
+            # print('Before:')
+            # [print(y) for y in verbs if y is not None]
+            verbs = [blank_out_subject(y, subject_label) for y in verbs if y is not None]
+            verbs = [y for y in verbs if y is not None]
 
-                # print('After:')
-                # [print(y) for y in verbs]
-                # print()
-                if len(verbs):
-                    prop_fitb[prop].extend(verbs)
+            # print('After:')
+            # [print(y) for y in verbs]
+            # print()
+            if len(verbs):
+                prop_fitb[prop].extend(verbs)
         self.best_templates = {prop_id: Counter(verbs).most_common(5) for prop_id, verbs in prop_fitb.items()}
+        self.human_formatter = FormatterForHumans()
     
     def verbalize(self, triple : KnowledgeTriple, exclude : Union[str, list[str]] = [], return_formatted_subject_and_object=False) -> list[str]:
         """Verbalize the given triple using templates. The verbalizations are ordered in decreasing "quality".
