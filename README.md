@@ -159,7 +159,17 @@ Specify the path to the WikiFactDiff dataset `WIKIFACTDIFF_PATH` and the desired
 </details>
 
 ## How to cite?
-Coming soon...
+
+```
+@misc{khodja2024wikifactdiff,
+      title={WikiFactDiff: A Large, Realistic, and Temporally Adaptable Dataset for Atomic Factual Knowledge Update in Causal Language Models}, 
+      author={Hichem Ammar Khodja and Frédéric Béchet and Quentin Brabant and Alexis Nasr and Gwénolé Lecorvé},
+      year={2024},
+      eprint={2403.14364},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
+```
 
 ## Having issues using our code?
 Please let us know by opening an issue :)
