@@ -9,7 +9,7 @@ In summary:
    - **evaluate** knowledge update algorithms (ROME, MEMIT, MEND, ...) on WikiFactDiff.
 - The build process was designed to be easy-to-use. All you have to do is provide $T_{old}$, $T_{new}$, and a folder where to store intermediate files (More details in 1. How to build WikiFactDiff?).
 - All required resources to perform knowledge update and its evaluation are provided in WikiFactDiff including neighbors for each fact to account for bleedover.
-- More details can be found in [huggingface](https://huggingface.co/datasets/OrangeInnov/WikiFactDiff) and in our [paper](https://arxiv.org/abs/2403.14364). 
+- More details can be found in [huggingface](https://huggingface.co/datasets/OrangeInnov/WikiFactDiff) and in our [paper](https://aclanthology.org/2024.lrec-main.1532/). 
 
 <!-- WikiFactDiff is a dataset designed to perform factual updates within LLMs and to evaluate them. More precisely, it describes the evolution of factual knowledge within Wikidata between two temporal points $T_{old}$ and $T_{new}$ in the form of semantic triples. -->
 
@@ -161,14 +161,28 @@ Specify the path to the WikiFactDiff dataset `WIKIFACTDIFF_PATH` and the desired
 ## How to cite?
 
 ```
-@misc{khodja2024wikifactdiff,
-      title={WikiFactDiff: A Large, Realistic, and Temporally Adaptable Dataset for Atomic Factual Knowledge Update in Causal Language Models}, 
-      author={Hichem Ammar Khodja and Frédéric Béchet and Quentin Brabant and Alexis Nasr and Gwénolé Lecorvé},
-      year={2024},
-      eprint={2403.14364},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL}
+@inproceedings{ammar-khodja-etal-2024-wikifactdiff-large,
+    title = "{W}iki{F}act{D}iff: A Large, Realistic, and Temporally Adaptable Dataset for Atomic Factual Knowledge Update in Causal Language Models",
+    author = "Ammar Khodja, Hichem  and
+      Bechet, Frederic  and
+      Brabant, Quentin  and
+      Nasr, Alexis  and
+      Lecorv{\'e}, Gw{\'e}nol{\'e}",
+    editor = "Calzolari, Nicoletta  and
+      Kan, Min-Yen  and
+      Hoste, Veronique  and
+      Lenci, Alessandro  and
+      Sakti, Sakriani  and
+      Xue, Nianwen",
+    booktitle = "Proceedings of the 2024 Joint International Conference on Computational Linguistics, Language Resources and Evaluation (LREC-COLING 2024)",
+    month = may,
+    year = "2024",
+    address = "Torino, Italia",
+    publisher = "ELRA and ICCL",
+    url = "https://aclanthology.org/2024.lrec-main.1532",
+    pages = "17614--17624",
 }
+
 ```
 
 ## Having issues using our code?
