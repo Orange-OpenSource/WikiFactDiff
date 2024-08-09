@@ -9,7 +9,7 @@ In summary:
    - **evaluate** knowledge update algorithms (ROME, MEMIT, MEND, ...) on WikiFactDiff.
 - The build process was designed to be easy-to-use. All you have to do is provide $T_{old}$, $T_{new}$, and a folder where to store intermediate files (More details in 1. How to build WikiFactDiff?).
 - All required resources to perform knowledge update and its evaluation are provided in WikiFactDiff including neighbors for each fact to account for bleedover.
-- More details can be found in [huggingface](https://huggingface.co/datasets/OrangeInnov/WikiFactDiff) and in our [paper](https://aclanthology.org/2024.lrec-main.1532/). 
+- More details can be found in [huggingface](https://huggingface.co/datasets/OrangeInnov/WikiFactDiff) and in our [paper](https://aclanthology.org/2024.lrec-main.1532/).
 
 <!-- WikiFactDiff is a dataset designed to perform factual updates within LLMs and to evaluate them. More precisely, it describes the evolution of factual knowledge within Wikidata between two temporal points $T_{old}$ and $T_{new}$ in the form of semantic triples. -->
 
@@ -146,7 +146,7 @@ conda activate wfd_eval
 For instance, to evaluate ROME on WikiFactDiff using the GPT-J model, run the following command:
 ```
 cd evaluate
-python experiments/evaluate_wfd.py 
+PYTHONPATH="./" python experiments/evaluate_wfd.py 
    --alg_name ROME 
    --model_name EleutherAI/gpt-j-6B 
    --hparams_fname EleutherAI_gpt-j-6B.json 
@@ -186,4 +186,4 @@ Specify the path to the WikiFactDiff dataset `WIKIFACTDIFF_PATH` and the desired
 ```
 
 ## Having issues using our code?
-Please let us know by opening an issue :)
+Please let us know by opening an issue ;)

@@ -30,7 +30,7 @@ class WikiFactDiffDataset(Dataset):
         if os.path.exists(path):
             self.data = pd.read_parquet(path)
         else:
-            self.data = load_dataset(path)['train'].to_pandas()
+            self.data = load_dataset(path, name="20210104-20230227_legacy")['train'].to_pandas()
         self.data = self.data.reset_index().rename(columns={'index': 'case_id'})
         # with open(path, "r") as f:
         #     data = [(i,json.loads(x)) for i,x in enumerate(f.readlines())]
@@ -105,5 +105,5 @@ class FunctionalWikiFactDiffDataset(WikiFactDiffDataset):
 
 
 if __name__ == '__main__':
-    d = WikiFactDiffDataset(balance=False, functional_only=False, path='wikifactdiff.parquet')
+    d = WikiFactDiffDataset(balance=False, functional_only=False, path=None)
     print(d)
