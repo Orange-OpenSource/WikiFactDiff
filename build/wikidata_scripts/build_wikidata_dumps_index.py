@@ -31,6 +31,7 @@ def process_internet_archive(identifier : str):
             
 
 if __name__ == '__main__':
+    json_path = os.path.join(STORAGE_FOLDER, 'wikidata_dumps_index.json')
     try:
         index = {}
 
@@ -45,7 +46,7 @@ if __name__ == '__main__':
             index[d] = url
         
         # Check on Internet Archive
-        identifiers = search_items('creator:"Wikidata editors" AND mediatype:"web" AND collection:"wikicollections" AND title:"Wikidata entity dumps (JSON and TTL) of all Wikibase entries for Wikidata generated on"')
+        identifiers = search_items('title:"Wikidata entity dumps (JSON and TTL) of all Wikibase entries for Wikidata generated on"')
         identifiers = [x['identifier'] for x in identifiers]
         print('Number of potienial dumps found in Internet Archive = %s' % len(identifiers))
         with mp.Pool(max(1, mp.cpu_count() // 2)) as pool:
@@ -60,11 +61,11 @@ if __name__ == '__main__':
         print()
         print('Total number of JSON dumps found = %s' % len(index))
         os.makedirs(STORAGE_FOLDER, exist_ok=True)
-        json_path = os.path.join(STORAGE_FOLDER, 'wikidata_dumps_index.json')
         with open(json_path, 'w') as f:
             json.dump(index, f)
         print('Finished.')
-    except:
+    except Exception as e:
+        print(e)
         if os.path.exists(json_path):
             os.remove(json_path)
         exit(1)
